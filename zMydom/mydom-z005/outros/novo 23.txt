@@ -1,0 +1,40 @@
+keyclock / redis / mongo / prototipos
+
+
+-Dspring.profiles.active=hom -Dserver.port=8080
+br.com.prt.api.ProtocoloApiApplication
+
+
+git clone 
+
+A sequência típica de comandos antes de fazer um commit seria:
+
+1) git pull origin main: Para atualizar seu ramo local com as últimas alterações do ramo principal no repositório remoto.
+
+2) git add . (ou git add <arquivos>): Para adicionar as alterações ao índice.
+
+3) git commit -m "mensagem do commit": Para fazer o commit das alterações.
+
+4) git push origin <sua-branch>: Para enviar suas alterações para o repositório remoto.
+
+Isso ajuda a evitar conflitos desnecessários e a manter um histórico de commits mais limpo e organizado.
+
+
+
+Pessoal vou listar aqui alguns comandos que eu acho legal saber no git:
+
+1 - git restore <arquivo> : Ele retira todas as mudanças feitas por você na branch desse arquivo.
+
+2 - git restore . : Retira todas as mudanças em todos os arquivos feitos na branch.
+
+3 - git stash pop 0 : trás de volta a branch os arquivos que foram armazenados em stash.
+
+4 - git stash: armazena as alterações em stash e você usa o comando ali em cima para trazer de volta, esses 2 comandos são uteis quando vc não quer commitar o que fez, mas precisa alterar de branch, então você armazena eles no stash e troca de branch, depois que voltar para sua branch, e so trazer as alterações de volta.
+
+5 - git branch : lista todas as branchs locais disponíveis.
+
+6 - git reset HEAD~1 : desfaz o ultimo commit feito.
+
+7 - git fetch : baixa novos commits, branches e tags de um repositório remoto para o seu repositório local.
+
+Se vocês tiverem alguma duvida com algum deles, pode me chamar.

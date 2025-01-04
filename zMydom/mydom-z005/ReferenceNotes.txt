@@ -1,0 +1,571 @@
+=============================================
+=============================================
+*** PL/SQL ***
+
+---
+FETCH FIRST 1 ROWS ONLY;
+
+---
+
+
+alter session set NLS_SORT='BINARY_AI';
+alter session set NLS_COMP='LINGUISTIC';
+
+---
+
+D:\src\database\oracle\21c\homes\OraDB21Home4\network\admin
+- listener.ora
+- tnsnames.ora
+
+---
+*numeric(p,s)
+centenas -> 3
+mil -> 6 + casas decimais
+milhoes -> 9 ...
+bilhoes -> 12 ...
+trilhoes -> 15 ...
+qudrilhoes -> 18 ...
+
+---
+select 
+	row_number() over(order by 1)
+,	sys_guid() UUID
+,	to_char(current_date, 'yyyyMM') competencia
+,	last_day(current_date)
+,	lpad(1,3,'0')
+from dual;
+
+---
+UPDATE 
+(SELECT tabela_1.valor AS valor_OLD, tabela_2.valor as valor_novo
+ FROM tabela_1
+ INNER JOIN tabela_2
+ ON tabela_1.codigo= tabela_2.codigo
+) tb
+SET tb.valor_OLD= tb.valor_novo
+
+---
+MERGE INTO target_table 
+USING source_table 
+ON search_condition
+    WHEN MATCHED THEN
+        UPDATE SET col1 = value1, col2 = value2,...
+        WHERE <update_condition>
+        [DELETE WHERE <delete_condition>]
+    WHEN NOT MATCHED THEN
+        INSERT (col1,col2,...)
+        values(value1,value2,...)
+        WHERE <insert_condition>;
+
+
+create table {nome-table} as select * from table;
+---
+
+select
+  unidade.id
+, unidade.sigla
+, unidade.nome
+from unidade unidade
+start with unidade.id = '1'
+connect by  prior unidade.id = unidade.idPai
+
+
+ou 
+
+
+WITH RECURSIVE unidades_filhas AS (
+	SELECT * FROM unidade WHERE id = :id
+	UNION
+	SELECT u.* FROM unidade u
+	JOIN unidades_filhas uf ON u.idPai = uf.id
+) SELECT * FROM unidades_filhas
+
+---
+
+SELECT *
+FROM sua_tabela
+WHERE NLS_LOWER(seu_campo, 'NLS_SORT=GENERIC_M_CI')
+LIKE '%' || NLS_LOWER('sua_pesquisa', 'NLS_SORT=GENERIC_M_CI') || '%';
+
+ou 
+
+SELECT *
+FROM sua_tabela
+WHERE NLS_LOWER(TRANSLATE(seu_campo, 'áàãâéèêíïóôõöúçñ', 'aaaaeeeiiiooooucn'), 'NLS_SORT=BINARY_AI')
+LIKE '%' || NLS_LOWER(TRANSLATE('sua_pesquisa', 'áàãâéèêíïóôõöúçñ', 'aaaaeeeiiiooooucn'), 'NLS_SORT=BINARY_AI') || '%';
+
+ou 
+
+SELECT *
+FROM sua_tabela
+WHERE REGEXP_REPLACE(seu_campo, '[ÁÀÃÂÉÈÊÍÏÓÔÕÖÚÇÑ]', '', 1, 0, 'i')
+LIKE '%' || REGEXP_REPLACE('sua_pesquisa', '[ÁÀÃÂÉÈÊÍÏÓÔÕÖÚÇÑ]', '', 1, 0, 'i') || '%';
+
+ou 
+
+SELECT *
+FROM sua_tabela
+WHERE TRANSLATE(UPPER(seu_campo), 'ÁÀÃÂÉÈÊÍÏÓÔÕÖÚÇÑ', 'AAAAEEEIIOOOUCN')
+LIKE '%' || TRANSLATE(UPPER('sua_pesquisa'), 'ÁÀÃÂÉÈÊÍÏÓÔÕÖÚÇÑ', 'AAAAEEEIIOOOUCN') || '%';
+
+---
+define jobId = 'AD_VP';
+select '&jobId' valor from dual;
+select * from jobs where job_id = '&jobId';
+undefine jobId;
+
+---
+select * from user_objects order by object_type;
+select * form user_tables;
+select * form user_ricyclebin;
+
+---
+describe table_name;
+desc table_name;
+
+---
+q'[{string desejada com aspas}]
+initcap
+trim(';' from '{text a ser tratado}')
+---
+TNSNAMES/LISTENER
+...\oracle\21c\homes\OraDB21Home4\network\admin
+
+* listener.ora
+* tnsnames.ora
+
+=============================================
+=============================================
+*** POSTGREE ***
+
+CREATE EXTENSION pgcrypto;
+
+SET timezone = 'America/Los_Angeles';
+SHOW TIMEZONE;
+
+SELECT 
+	gen_random_uuid()
+,	CURRENT_TIMESTAMP	
+; 
+
+=============================================
+=============================================
+*** H2 ***
+
+
+
+
+
+=============================================
+=============================================
+*** cucumber ***
+
+
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>cucumber-java8</artifactId>
+    <version>${cucumber.version}</version>
+    <scope>test</scope>
+</dependency>
+=============================================
+=============================================
+
+
+*** NODE.js ***
+
+node -v
+
+npm i -g npm
+npm i loadash
+npm i -g nodemon
+
+npm init
+npm i --save axios
+npm i --save-dev axios@0.17.1 -E
+
+npm install --legacy-per-deps
+
+npm i -g npm-upgrade
+npm install -g n latest
+ng update @angular/cli @angular/core
+npm update angular-cli -g
+=============================================
+=============================================
+*** LOMBOK ***
+
+@Getter
+@Setter
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+
+@EqualsAndHashCode.Include
+@Id ...
+
+=============================================
+=============================================
+*** FLUTTER ***
+
+
+por favor monte o comando flutter create para meu projeto chamado 'mydom' com 'android-language java' e 'ios-language  Objective-C' e 'nome da organização br.com.mariapuri' e 'template app' e
+
+flutter create -t app --org br.com.mariapuri --project-name mydom flutter --description “MyDom Flutter project” --overwrite 
+
+
+
+
+flutter create --template app --empty --overwrite .
+
+
+Execute one of the following:
+
+flutter channel stable
+flutter pub upgrade
+flutter pub getflutter
+
+
+flutter upgrade --force
+flutter upgrade
+
+flutter pub get
+
+flutter packages get
+
+
+dart pub outdated
+dart pub upgrade --major-versions
+
+flutter pub cache repair
+
+flutter run --ignore-deprecation
+
+
+flutter config --android-sdk {path/to/android/sdk}
+flutter config --android-studio-dir {path/to/android/studio}
+flutter doctor --android-licenses
+
+=============================================
+=============================================
+*** ANGULAR ***
+
+    {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}"
+    },   
+
+ng version
+
+npm install -g @angular/cli
+npm i
+Set-ExecutionPolucy -ExecutionPolicy Bypass
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+ng generate component {name of componet}
+ng generate service {name of service}
+ng generate module {name of module} app-routing --flat --module=app
+npm install angular-in-memory-web-api --save
+
+
+ng new mydom --minimal
+ng new mydom -s=false -t=false -S=true --style="scss" --routing  --directory="."
+
+*versao 17
+ng new mydom --skip-tests=false --skip-git=false --strict=true --style=scss --routing --directory=.
+
+
+npm install --save bootstrap
+npm install --save bootstrap-icons
+npm install --save @popperjs/core
+-angular.json
+"styles": [
+  "node_modules/bootstrap/dist/css/bootstrap.min.css",
+  "src/styles.scss"
+],
+"scripts": [
+  "node_modules/bootstrap/dist/js/bootstrap.min.js"
+]
+
+
+npm install --save @angular/material @angular/cdk
+
+
+
+ng add ngx-bootstrap
+ng add @angular/material
+
+npm install ngx-bootstrap --save
+npm install @ng-bootstrap/ng-bootstrap --save
+
+
+
+ng update @angular/core@14 @angular/cli@14
+ng update @angular/material
+npm install npm@latest –g
+
+npm uninstall -g angular-cli
+npm uninstall -g @angular/cli
+npm cache clean --force
+
+
+npm install -g @angular/cli
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+
+
+ng add @ng-bootstrap/ng-bootstrap
+
+para o sts: Preferences/General/Content Types/Java Properties File: Default encoding: ISO-8859-1
+
+
+JSON.stringfy("", (k,v)=> ?? undefined);
+
+private equalsIgnoringCaseAndSpace(text, other): boolean{
+	return this.equalsIgnoringCase((text ? text : '').replace(' ',''), (other ? other : '').replace(' ',''));
+}
+
+private equalsIgnoringCase(text, other): boolean{
+	return (text ? text : '').localeCompare((other ? other : ''), undefined, { sensitivity: 'base'}) ===0;
+}
+
+
+
+=============================================
+=============================================
+*** LINUX ***
+
+sudo apt update && sudo apt -y upgrade
+sudo do-release-upgrade -d
+
+lsb_release -a
+
+
+sudo apt-get install curl
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+
+sudo add-apt-repository ppa:openjdk-r/ppa
+sudo apt update
+sudo apt install openjdk-17-jdk
+
+sudo update-alternatives --config java
+
+export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+export PATH=$PATH:$JAVA_HOME/bin
+
+echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64' >> ~/.bashrc
+echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
+
+Recarregue o arquivo ~/.bashrc com o comando: source ~/.bashrc
+Teste a configuração do Java com o comando: java -version
+
+nvm install node --lts
+
+
+=============================================
+=============================================
+*** NVM ***
+
+https://github.com/coreybutler/nvm-windows/releases/tag/1.1.11
+
+nvm list
+nvm install vxx.xx.x
+nvm use vxx.xx.x
+
+=============================================
+=============================================
+*** NPM ***
+
+npm -version
+npm update -g
+npm install -g npm@latest
+
+
+=============================================
+=============================================
+*** NODE.js ***
+
+npm i -g npm
+npm i loadash
+npm i -g nodemon
+
+npm init
+npm i --save axios
+npm i --save-dev axios@0.17.1 -E
+
+npm install --legacy-per-deps
+
+npm install --save-dev @angularclass/hmr
+Implementation of HMR(Hot Module Replacement) to Angular Project
+
+
+"debug.chrome.useV3": true
+=============================================
+=============================================
+*** GIT ***
+
+git clone <URL_do_projeto>
+git clone <URL_do_repositório> .
+git clone --depth 1 <URL_do_repositório> .
+
+
+
+git config --global init.defaultBranch main
+git ini
+git remote add origin https://github.com/marcelomustafa/mydom.git
+git add .
+git commit -m "{MENSAGEM DO COMMIT}"
+git branch --set-upstream-to=origin/<branch> main
+
+git pull origin {main} --allow-unrelated-histories
+git push origin {branch name}
+
+ 
+ 
+ 
+git branch -m main <BRANCH>
+git fetch origin
+git branch -u origin/<BRANCH> <BRANCH>
+git remote set-head origin -a
+
+=============================================
+=============================================
+*** SPRING ***
+
+
+server.port:8080
+
+UserDetails userDetails =
+	(UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+// userDetails.getUsername()
+// userDetails.getPassword()
+// userDetails.getAuthorities()
+
+=============================================
+=============================================
+*** JPQL/CRETERIAQUERY ***
+
+---
+String sql = "UPDATE Pessoa SET cidade = :novaCidade WHERE idade < :idadeLimite AND nome LIKE :nome";
+Query query = entityManager.createNativeQuery(sql);
+query.setParameter("novaCidade", "Rio de Janeiro");
+query.setParameter("idadeLimite", 25);
+query.setParameter("nome", "%Santos%");
+int updatedRows = query.executeUpdate();
+
+
+ou
+
+String sql = "DELETE FROM Pessoa WHERE idade > ? AND cidade = ?";
+Query query = entityManager.createNativeQuery(sql);
+query.setParameter(1, 40);
+query.setParameter(2, "Belo Horizonte");
+int deletedRows = query.executeUpdate();
+
+ou 
+
+int rowsUpdated = entityManager.createNativeQuery(sqlUpdate)
+	.setParameter("novoStatus", novoStatus)
+	.setParameter("valorCriterio", valorCriterio)
+	.executeUpdate();
+
+---
+
+
+=============================================
+=============================================
+*** POWER BI ***
+
+Image Grid
+Text Filter
+
+
+*** FONTE DE DADOS PUBLICAS ***
+- Open Data NI   -> https://www.opendatani.gov.uk/
+- Dataset Search -> https://datasetsearch.research.google.com/
+- IBGE			 -> https://www.ibge.gov.br/estatisticas/downloads-estatisticas.html
+- IBGE (Dados Abertos) -> https://dados.gov.br/dados/conjuntos-dados
+- ENEM 				   -> https://www.gov.br/inep/pt-br/acesso-a-informacao/dados-abertos/microdados/enem
+- AdventureWorkes	   -> https://docs.microsoft.com/pt-br/sql/samples/adventureworks-install-configure?view=sql-server-ver15&tabs=ssms
+- Kaggle			   -> https://www.kaggle.com/datasets
+	
+*** FORMULAS ***
+Valor = LOOKUPVALUE(Produtos[Valor], Produtos[ID Produto], Vendas[ID Produto])
+Faturamento total = SUM(Vendas[Faturamento])
+Valor médio por produto = SUM(Produtos[Valor]) / COUNT(Produtos[ID Produto])
+	
+
+=============================================
+=============================================
+*** JAVA ***
+
+#JBoss Tools
+https://tools.jboss.org/downloads/archives.html
+https://download.jboss.org/jbosstools/photon/stable/updates/
+
+---
+if (obj instanceof MinhaClasse) {
+    // obj é uma instância de MinhaClasse ou de uma de suas subclasses
+}
+
+ou 
+
+if (obj instanceof MinhaClasse) {
+    // obj é uma instância de MinhaClasse ou de uma de suas subclasses
+}
+
+
+
+-Dspring.profiles.active=hom -Dserver.port=8080
+
+---
+Limpe o Cache e Reimporte as Dependências: Execute o comando para limpar o cache do Maven
+mvn clean install -U
+
+=============================================
+=============================================
+*** CMD ***
+
+dir      -> listar conteudo da pasta
+cd       -> troca de diretório
+cd .     -> diretorio atual
+cd ..    -> volta ao  diretorio (apenas um) anterior
+cd ..\.. -> volta dois diretorios anteriores
+cd /	 -> diretorio raiz
+tree	 -> mostra a estrutura de pasta do sistema
+mkdir    -> criar novo diretorio
+type	 -> exibir conteudo do arquivo
+help ??? -> ajuda
+move	 -> mover arquivos
+more	 -> exibe conteudo do arquivo paginado
+copy	 -> copia arquivos
+rename	 -> renomear arquivo ou diretorio
+del	/ del *.?    -> apagar arquivo ou diretorio
+cls				 -> lipar tela de cmd
+fc				 -> compara arquivos
+systeminfo		 -> exibe informações do sistema
+rmdir			 -> remove um diretorio
+shutdown		 -> deslicar ou reinicar o pc
+date			 -> exibir e alterar a data
+find			 -> busca uma sequencia de texto em um ou mais arquivos
+exit 			 -> encerra o terminal
+tar -cf          -> compactar arquivos
+tar -tf          -> listar aquivos compactar arquivos
+tar -xf          -> extrair aquivos compactar arquivos
+tar /?			 -> help
+*** SCRIPT *.bat ***
+@echo off
+echo 		-> saida texto no console
+pause		-> aguarda interação do usuario
+
+??? 2> erros.txt -> retorna o erro pra outro arquivo. {0-> entrada / 1-> saida / 2-> erro}
+IF %ERRORLEVEL% NEQ 0(echo "Erro na execucao") -> exibir mensagem caso tenha erro
+
+=============================================
+=============================================

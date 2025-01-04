@@ -1,0 +1,17 @@
+<div class="competencia-picker">
+  <input type="text" [value]="formatCompetencia()" (click)="openMonthPicker()" readonly />
+  <input type="number" [(ngModel)]="selectedYear" (input)="onYearInput()" />
+  <button (click)="decreaseMonth()">-</button>
+  <button (click)="increaseMonth()">+</button>
+
+  <div class="month-picker" *ngIf="isMonthPickerOpen">
+    <div *ngFor="let month of months; let i = index"
+          class="month-option"
+          tabindex="0"
+          (click)="selectMonth(i)"
+          (keydown)="onKeyDown($event, i)">
+      {{ month }}
+    </div>
+  </div>
+</div>
+

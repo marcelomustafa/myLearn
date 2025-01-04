@@ -1,0 +1,6 @@
+*.zip
+*.rar
+*.7z
+source/app/flutter/android/srcgradle-repository.gradle/
+configurations/
+source/api/spring/authServerTest/

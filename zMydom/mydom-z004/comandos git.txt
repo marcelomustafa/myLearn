@@ -1,0 +1,20 @@
+1 - git pull -- vai atualizar a branch atual
+2 - git pull origin master -- vai atualizar a branch atual com as alterações da master
+
+======================================
+criar branch
+sempre fazer pull da master para a minha branch
+======================================
+1 - git pull			- atualizar a master
+2 - git checkout -b nome_branch - criar branch com base na master
+3 - Fazer as alterações de código...
+4 - git pull origin master	- atualizar a branch com a master
+5 - git status			- verificar arquivos com alterações
+6 - git add .			- adicionar todos os arquivos com alterações
+7 - git add <caminho arquivo>	- adicionar arquivo específico
+8 - git commit -m "descrição"   - Descrição do commit. ex.: "corrigido bug tal"
+9 - git push origin nome_branch	- jogar para master - commit realizado
+------------
+10 - realizar pull request no gitHub.
+======================================
+11 - git checkout nome_branch    - vai alterar a branch atual (-b cria, sem -b só vai selecinar a branch para ser a atual se existir)

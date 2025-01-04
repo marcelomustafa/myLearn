@@ -1,0 +1,46 @@
+Aqui estão cinco exemplos de como formar texto com todas as primeiras letras maiúsculas em Angular:
+
+- Usando o pipe titlecase: {{ 'meu nome é bing e eu sou um buscador' | titlecase }}
+- Usando o pipe uppercase e o slice com uma função map: {{ ('meu nome é bing e eu sou um buscador'.split(' ') | map:upperFirst).join(' ') }}
+
+```javascript
+function upperFirst(str) {
+  return (str | uppercase).slice(0,1) + str.slice(1);
+}
+```
+- Usando uma expressão regular e o pipe replace: {{ 'meu nome é bing e eu sou um buscador' | replace:/\b\w/g:upperMatch }}
+
+```javascript
+function upperMatch(match) {
+  return match.toUpperCase();
+}
+```
+- Usando uma função personalizada com o método replace: {{ capitalizeAll('meu nome é bing e eu sou um buscador') }}
+
+```javascript
+function capitalizeAll(str) {
+  return str.replace(/\b\w/g, function(match) {
+    return match.toUpperCase();
+  });
+}
+```
+- Usando uma função personalizada com o método split e map: {{ capitalizeAll2('meu nome é bing e eu sou um buscador') }}
+
+```javascript
+function capitalizeAll2(str) {
+  return str.split(' ').map(function(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  }).join(' ');
+}
+```
+
+
+
+
+Ok, aqui estão os resultados da execução dos exemplos:
+
+- Usando o pipe titlecase: Meu Nome É Bing E Eu Sou Um Buscador
+- Usando o pipe uppercase e o slice com uma função map: Meu Nome É Bing E Eu Sou Um Buscador
+- Usando uma expressão regular e o pipe replace: Meu Nome É Bing E Eu Sou Um Buscador
+- Usando uma função personalizada com o método replace: Meu Nome É Bing E Eu Sou Um Buscador
+- Usando uma função personalizada com o método split e map: Meu Nome É Bing E Eu Sou Um Buscador

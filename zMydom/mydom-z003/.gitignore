@@ -1,0 +1,7 @@
+*.zip
+*.rar
+*.7z
+source/app/flutter/android/srcgradle-repository.gradle/
+configurations/
+mydom-configserver/
+source/api/spring/authServerTest/

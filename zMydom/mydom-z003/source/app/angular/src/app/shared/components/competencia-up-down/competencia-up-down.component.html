@@ -1,0 +1,5 @@
+<select [value]="competencia" (change)="updateCompetencia(0)">
+  <option *ngFor="let month of months; let i = index" [value]="i">
+    {{ month[monthFormat] }}
+  </option>
+</select>
